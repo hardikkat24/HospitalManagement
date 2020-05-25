@@ -1,0 +1,39 @@
+{% extends "core/base.html" %}
+{% block title %}
+Manage Invoice
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-center py-3">
+
+    <br>
+    <h3>Invoice List</h3>
+    <br>
+    <a href = "{% url 'receptionist-create-invoice' %}" class = "btn btn-large btn-outline-primary">Create Invoice</a>
+    <br>
+    <br>
+    <table class = "table table-striped">
+        <tr>
+            <th>Date</th>
+            <th>Patient's Name</th>
+            <th>Paid</th>
+            <th>Outstanding</th>
+            <th>Total</th>
+            <th>Invoice</th>
+        </tr>
+
+        {% for invoice in invoices %}
+        <tr>
+            <td>{{ invoice.date }}</td>
+            <td>{{ invoice.patient.profile.full_name }}</td>
+            <td>{{ invoice.paid }}</td>
+            <td>{{ invoice.outstanding }}</td>
+            <td>{{ invoice.total }}</td>
+            <td><a href = "{{ invoice.invoiceURL }}">Open Invoice</a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+Contact Details
+{% endblock %}
+
+{% block content %}
+<div class="container text-center py-3">
+
+    <h3>Contact Details for {{ patient.full_name }}</h3>
+    <br>
+    <p>Phone: {{ patient.phone }}</p>
+    <p>Email: {{ patient.user.email }}</p>
+
+</div>
+{% endblock %}

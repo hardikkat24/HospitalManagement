@@ -1,0 +1,62 @@
+{% extends "core/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+Contact Us
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="container text-center py-3">
+
+    <h1>Get in Touch</h1>
+    <br>
+    <br>
+
+    <div class = "row">
+
+        <div class = "col-md-8">
+            <div class = "container">
+                <form method="POST">
+                    {% csrf_token %}
+
+                    {{ form|crispy }}
+
+                    <button type = "submit" class = "btn btn-primary">Send</button>
+
+                </form>
+            </div>
+        </div>
+
+        <div class = "col-md-4">
+            <div class = "container small">
+                <div>
+                    <br>
+                    <br>
+                    <img src="{% static 'home.svg' %}" class="" width="60px">
+                    <div>
+                        <p class = "font-weight-bold mb-0 " >Buttonwood, California</p>
+                        <p>Rosemead CA 91770</p>
+                    </div>
+                    <br>
+                    <br>
+                    <img src="{% static 'smartphone.svg' %}" class="" width="60px">
+                    <div>
+                        <p class = "font-weight-bold mb-0 " >+1 253 565 2365</p>
+                        <p>Mon to Fri 9am to 6pm</p>
+                    </div>
+                    <br>
+                    <br>
+                    <img src="{% static 'mail.svg' %}" class="" width="60px">
+                    <div>
+                        <p class = "font-weight-bold mb-0 " >support@docmed.com</p>
+                        <p>Send us your query anytime!</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

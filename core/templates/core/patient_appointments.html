@@ -1,0 +1,34 @@
+{% extends "core/base.html" %}
+{% block title %}
+Appointments
+{% endblock %}
+
+{% block content %}
+<div class="container text-center py-3">
+    <h3>Appointments</h3>
+    <table class = "table table-striped">
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Consulting Doctor</th>
+            <th>Status</th>
+        </tr>
+
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.date }}</td>
+            <td>{{ appointment.time }}</td>
+            <td>{{ appointment.doctor }}</td>
+            <td>
+                {%  if appointment.status %}
+                    Completed
+                {% else %}
+                    Pending
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+{% endblock %}

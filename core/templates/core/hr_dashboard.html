@@ -1,0 +1,90 @@
+{% extends "core/base.html" %}
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-center py-3">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card bg-primary text-white">
+                <div class = "card-header">
+                    Total Doctors
+                </div>
+                <div class="card-body">
+                    {{ total_doctors }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card bg-primary text-white">
+                <div class = "card-header">
+                    Total Patients
+                </div>
+                <div class="card-body">
+                    {{ total_patients }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card bg-primary text-white">
+                <div class = "card-header">
+                    On-duty Doctors
+                </div>
+                <div class="card-body">
+                    {{ on_duty_doctors }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="container-fluid border">
+        <br>
+        <h3>Doctors</h3>
+        <br>
+        <a href = "{% url 'hr-create-doctor' %}" class="btn btn-primary btn-block">Add Doctor</a> 
+        <br>
+        <table class = "table ">
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Status</th>
+                <th>Department</th>
+                <th>Attendance</th>
+                <th>Salary</th>
+                <th>Update</th>
+                <th>Remove</th>
+            </tr>
+    
+            {% for doctor in doctors %}
+            <tr>
+                <td>{{ doctor.full_name }}</td>
+                <td>{{ doctor.phone }}</td>
+                <td>{{ doctor.user.email }}</td>
+                <td>{{ doctor.gender }}</td>
+                <td>{{ doctor.age }}</td>
+                <td>
+                    {%  if doctor.status %}
+                        On-duty
+                    {% else %}
+                        Absent
+                    {% endif %}
+                </td>
+                <td>{{ doctor.department }}</td>
+                <td>{{ doctor.attendance }}</td>
+                <td>{{ doctor.salary }}</td>
+                <td><a href = "{% url 'hr-update-doctor' doctor.pk %}" class = "btn btn-info">Update</a></td>
+                <td><a href = "{% url 'hr-delete-doctor' doctor.pk %}" class = "btn btn-danger">Delete</a></td>
+
+            </tr>
+            {% endfor %}
+    
+        </table>
+    </div>
+    
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "core/base.html" %}
+{% block title %}
+Accounting
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-center py-3">
+
+    <div class = "row">
+        <div class="col-md-4 border">
+            <br>
+            <h3>Patients(with remaining payments)</h3>
+            <br>
+            
+            <table class = "table ">
+                <tr>
+                    <th>Patient</th>
+                    <th>Outstanding</th>
+                    <th>Paid</th>
+                    <th>Contact Details</th>
+                </tr>
+        
+                {% for patient in patients %}
+                {% if patient.outstanding > 0 %}
+                <tr>
+                    <td>{{ patient.full_name }}</td>
+                    <td>{{ patient.outstanding }}</td>
+                    <td>{{ patient.paid }}</td>
+                    <td><a class = "btn btn-primary" href="{% url 'hr-patient-contact' patient.pk %}">Contact Details</a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+        
+            </table>
+        </div>
+        <div class = 'col-md-1'>
+
+        </div>
+        <div class="col-md-7 border">
+            <br>
+            <h3>Recent Patients</h3>
+            <br>
+            
+            <table class = "table ">
+                <tr>
+                    <th>Date</th>
+                    <th>Patient's Name</th>
+                    <th>Paid</th>
+                    <th>Outstanding</th>
+                    <th>Total</th>
+                    <th>Invoice</th>
+                </tr>
+        
+                {% for invoice in invoices %}
+                <tr>
+                    <td>{{ invoice.date }}</td>
+                    <td>{{ invoice.patient.profile.full_name }}</td>
+                    <td>{{ invoice.paid }}</td>
+                    <td>{{ invoice.outstanding }}</td>
+                    <td>{{ invoice.total }}</td>
+                    <td><a href = "{{ invoice.invoiceURL }}">Open Invoice</a></td>
+                </tr>
+                {% endfor %}
+        
+            </table>
+        </div>
+    </div>
+    
+    
+</div>
+{% endblock %}

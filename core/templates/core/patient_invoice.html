@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+{% block title %}
+Payments & Invoice
+{% endblock %}
+
+{% block content %}
+<div class="container text-center py-3">
+    <h3>Payments & Invoice</h3>
+    <table class = "table table-striped">
+        <tr>
+            <th>Invoice</th>
+            <th>Paid</th>
+            <th>Date</th>
+            <th>Outstanding</th>
+        </tr>
+
+        {% for invoice in invoices %}
+        <tr>
+            <td><a href = "{{ invoice.invoiceURL }}">Open Invoice</a></td>
+            <td>{{ invoice.paid }}</td>
+            <td>{{ invoice.date }}</td>
+            <td>{{ invoice.outstanding }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+{% endblock %}

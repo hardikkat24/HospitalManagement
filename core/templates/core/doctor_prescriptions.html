@@ -1,0 +1,38 @@
+{% extends "core/base.html" %}
+{% block title %}
+Prescriptions
+{% endblock %}
+
+{% block content %}
+<div class="container py-3">
+    <div class="text-center">
+        <h2 class = "text-center">Prescriptions</h2>
+        <br>
+        <a href = "{% url 'doctor-create-prescription' %}" class = "btn btn-large btn-outline-primary">Create Prescription</a>
+    </div>
+    <br>
+    
+    {% for prescription in prescriptions %}
+    <div class="card">
+        <div class = "card-body">
+            <h3 class = "card-title font-weight-bold">
+                {{ prescription.date|date:'d M, Y'  }}
+            </h3>
+            <br>
+            <div class = "card-text">
+                Symptoms: {{ prescription.disease }}
+            </div>
+            <br>
+            <div class = "card-text">
+                Prescription: {{ prescription.prescription }}
+            </div>
+            <br>
+            <div class = "card-text">
+                Patient Name: {{ prescription.patient.profile.full_name }}
+            </div>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "core/base.html" %}
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-center py-3">
+   
+        
+    
+    <div class="row">
+        <div class="col-sm">
+            <div class="card bg-primary text-white">
+                <div class = "card-header">
+                    Total Appointments
+                </div>
+                <div class="card-body">
+                    {{ total_appointments }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card bg-success text-white">
+                <div class = "card-header">
+                    Appointments Done
+                </div>
+                <div class="card-body">
+                    {{ appointments_done }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card bg-info text-white">
+                <div class = "card-header">
+                    Upcoming Appointments
+                </div>
+                <div class="card-body">
+                    {{ upcoming_appointments }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <a href = "{% url 'receptionist-manage-invoice' %}" class = "btn btn-large btn-outline-primary">Manage Invoice</a>
+    <br>
+    <br>
+    <div class = "row">
+        <div class="col-md-5 border">
+            <br>
+            <h3>Appointments</h3>
+            <br>
+            <a href = "{% url 'receptionist-create-appointment' %}" class="btn btn-primary btn-block">Create Appointment</a> 
+            <br>
+            <table class = "table ">
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Doctor</th>
+                    <th>Patient</th>
+                    <th>Status</th>
+                    <th>Mark Complete</th>
+                </tr>
+        
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.date }}</td>
+                    <td>{{ appointment.time }}</td>
+                    <td>{{ appointment.doctor }}</td>
+                    <td>{{ appointment.patient }}</td>
+                    <td>
+                        {%  if appointment.status %}
+                            Completed
+                        {% else %}
+                            Pending
+                        {% endif %}
+                    </td>
+                    <td>
+                        {%  if appointment.status %}
+                            Already Completed
+                        {% else %}
+                        <a href = "{% url 'receptionist-complete-appointment' appointment.pk %}" class = "btn btn-success">Update</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+        
+            </table>
+        </div>
+        <div class = 'col-md-1'>
+
+        </div>
+        <div class="col-md-6 border">
+            <br>
+            <h3>Recent Patients</h3>
+            <br>
+            <a href = "{% url 'receptionist-create-patient' %}" class="btn btn-primary btn-block">Create Patient</a> 
+            <br>
+            <table class = "table ">
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+        
+                {% for patient in patients %}
+                <tr>
+                    <td>{{ patient.full_name }}</td>
+                    <td>{{ patient.phone }}</td>
+                    <td>{{ patient.user.email }}</td>
+                    <td>{{ patient.gender }}</td>
+                    <td>{{ patient.age }}</td>
+                    <td><a href = "{% url 'receptionist-update-patient' patient.pk %}" class = "btn btn-info">Update</a></td>
+                    <td><a href = "{% url 'receptionist-delete-patient' patient.pk %}" class = "btn btn-danger">Delete</a></td>
+                </tr>
+                {% endfor %}
+        
+            </table>
+        </div>
+    </div>
+    
+    
+</div>
+{% endblock %}

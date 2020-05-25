@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    {% load static %}
+</head>
+<body>
+ 
+    
+
+        {% if user.is_authenticated %}
+        <nav class = "navbar navbar-expand-sm bg-dark navbar-dark">
+            <a class="navbar-brand" href = "">DocMed</a>
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a href = "{% url 'home' %}" class = "nav-link">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href = "{% url 'contact' %}" class = "nav-link">Contact Us</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href = "{% url 'about-us' %}" class = "nav-link">About Us</a>
+                </li>
+
+                {% if user.profile.position == "P" or user.profile is None  %}
+                <li class="nav-item">
+                    <a href = "{% url 'update-profile' %}" class = "nav-link">Profile</a>
+                </li>
+                {% elif user.profile.position == "D" %}
+                <li class="nav-item">
+                    <a href = "{% url 'doctor-update-profile' %}" class = "nav-link">Profile</a>
+                </li>
+                {% endif %}
+
+                {% if user.profile.position == "H" %}
+                <li class="nav-item">
+                    <a href = "{% url 'hr-accounting' %}" class = "nav-link">Accounting</a>
+                </li>
+                {% endif %}
+
+                {% if user.profile.position == "R" %}
+                <li class="nav-item">
+                    <a href = "{% url 'receptionist-dashboard' %}" class = "nav-link">Dashboard</a>
+                </li>
+                {% elif user.profile.position == "H" %}
+                <li class="nav-item">
+                    <a href = "{% url 'hr-dashboard' %}" class = "nav-link">Dashboard</a>
+                </li>
+                {% endif %}
+
+                {% if user.profile.position == "P" %}
+                <li class="nav-item">
+                    <a href = "{% url 'patient-appointments' %}" class = "nav-link">Appointments</a>
+                </li>
+                {% elif user.profile.position == "D" %}
+                <li class="nav-item">
+                    <a href = "{% url 'doctor-appointments' %}" class = "nav-link">Appointments</a>
+                </li>
+                {% endif %}
+
+                {% if user.profile.position == "P" %}
+                <li class="nav-item">
+                    <a href = "{% url 'patient-prescriptions' %}" class = "nav-link">Prescriptions</a>
+                </li>
+                {% elif user.profile.position == "D" %}
+                <li class="nav-item">
+                    <a href = "{% url 'doctor-prescriptions' %}" class = "nav-link">Prescriptions</a>
+                </li>
+                {% endif %}
+
+                {% if user.profile.position == "P" %}
+                <li class="nav-item">
+                    <a href = "{% url 'patient-invoice' %}" class = "nav-link">Payments & Invoice</a>
+                </li>
+                {% endif %}
+ 
+                <li class="nav-item">
+                    <a href = "{% url 'logout' %}" class = "nav-link">Log Out</a>
+                </li>
+            </ul>
+        </nav>
+
+        {% else %}
+        <nav class = "navbar navbar-expand-sm bg-dark navbar-dark">
+            <a class="navbar-brand" href = "">DocMed</a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href = "{% url 'home' %}" class = "nav-link">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href = "{% url 'contact' %}" class = "nav-link">Contact Us</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href = "{% url 'about-us' %}" class = "nav-link">About Us</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href = "{% url 'register' %}" class = "nav-link">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a href = "{% url 'login' %}" class = "nav-link">Login</a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+
+        
+    {% if messages %}
+    {% for m in messages %}
+        <div class="alert alert-{{ m.tags }} alert-dismissibl0e text-center">
+            {{ m }}
+        </div>
+    
+    {% endfor %}
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
